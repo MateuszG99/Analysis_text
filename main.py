@@ -65,6 +65,40 @@ def count_letter_frequency(text):
     letter_count = Counter(letters)
     return letter_count
 
+
+def detect_language(text):
+    """
+    Detects the language of the input text.
+
+    Args:
+        text (str): The input text to be analyzed.
+
+    Returns:
+        str: The detected language code (e.g., "en" for English).
+    """
+    try:
+        detected_languages = detect_langs(text)
+        most_probable_language = detected_languages[0]
+        return most_probable_language.lang
+
+    except Exception as e:
+        print(f"Language detection error: {e}")
+        return "unknown"
+
+if __name__ == "__main__":
+    file_path = "sample_text_file.txt"
+
+    try:
+        with open(file_path, "r") as file:
+            sample_text = file.read()
+    except FileNotFoundError:
+        print(f"Nie można znaleźć pliku: {file_path}")
+        exit()
+
+    print("Wykryty język tekstu:")
+    detected_language = detect_language(sample_text)
+    print(f"Język: {detected_language}")
+
 if __name__ == "__main__":
     file_path = "sample_text_file.txt"
 
